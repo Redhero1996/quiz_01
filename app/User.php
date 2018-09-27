@@ -17,6 +17,12 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'first_name',
+        'last_name',
+        'phone_number',
+        'address',
+        'role_id',
+        'avatar',
         'email',
         'password',
     ];
@@ -30,4 +36,19 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    public function topics()
+    {
+        return $this->belongsToMany(Topic::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }
