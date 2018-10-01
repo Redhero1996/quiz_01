@@ -1,0 +1,26 @@
+{
+  "name": "quiz",
+  "description": "quiz mini test",
+  "main": "quiz",
+  "authors": [
+    "Hero Gustin"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "quiz"
+  ],
+  "homepage": "https://github.com/Redhero1996/quiz_01",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.3.1",
+    "MDBootstrap": "^4.5.11",
+    "Font-Awesome": "^5.3.1"
+  }
+}
