@@ -9,7 +9,7 @@
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+ */
 
 Auth::routes();
 Route::get('/', 'HomePageController@home');
@@ -26,3 +26,6 @@ Route::post('login', 'Auth\LoginController@login');
 
 // Logout
 Route::get('logout', 'HomePageController@logout')->name('logout');
+
+// handle ajax
+Route::get('category/{category_id}', 'QuizController@category');
