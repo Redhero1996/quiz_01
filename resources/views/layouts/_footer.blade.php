@@ -1,2 +1,2 @@
 <hr>
-    <p class="text-center">Copyright HeroGustin - Nothing is impossible</p>
+    <p class="text-center">Copyright &copy; HeroGustin - Nothing is impossible</p>
