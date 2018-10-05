@@ -1,5 +1,4 @@
 @extends('main')
-@section('title', ' Mini Test ')
 @section('content')
     <div class="row">
         <div class="col-sm-2">

@@ -12,6 +12,8 @@
  */
 
 Auth::routes();
+
+// Homepage
 Route::get('/', 'HomePageController@home');
 Route::view('about', 'pages.about');
 Route::view('contact', 'pages.contact');

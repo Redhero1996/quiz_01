@@ -1,7 +1,10 @@
 <?php
 
 return [
+    'negative' => '-1',
     'number_ques' => '1',
     'minute' => '15',
     'second' => '00',
+    'zero' => '0',
+    'point' => '5',
 ];

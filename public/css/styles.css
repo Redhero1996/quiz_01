@@ -2,6 +2,22 @@ div.container-fluid {
     font-family: Rotoco;
 }
 
+div.container-fluid.login,  div.container-fluid.register{
+    width: 50%; 
+    margin-top: 20px;
+}
+
+input.username, input.email, input.password, input.password-confirm, button.login, button.register {
+    border-radius: 20px;
+}
+
+p.help-block.validated {
+    color: red;
+    font-style: italic;
+    text-align: left;
+    padding-left: 10px;
+}
+
 .chip.chip-md {
     height: 42px;
     line-height: 42px;
