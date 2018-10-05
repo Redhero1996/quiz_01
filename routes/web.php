@@ -29,3 +29,6 @@ Route::get('logout', 'HomePageController@logout')->name('logout');
 
 // handle ajax
 Route::get('category/{category_id}', 'QuizController@category');
+
+// Quiz page
+Route::get('{category_slug}/{topic_slug}', 'QuizController@quiz')->name('quiz');

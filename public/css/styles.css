@@ -37,7 +37,6 @@ span.span-radius {
     border-radius: 26px;
     border: 1px solid grey;
 }
-
 p.row-space {
     margin: 10px 0px;
 }
@@ -97,4 +96,116 @@ div#line {
 
 div#paginate {
     padding-left: 40%;
+}
+
+div.quiz {
+    margin: auto;
+    margin-top: 65px;
+    width: 76%;
+}
+
+h3#currentQuestionNumberText {
+    font-family: Western, cursive ;
+    font-weight: bold;
+    color: #1a1a1a;
+}
+
+button#btn-test {
+    float: right;
+    padding: 10px;
+    margin: 0;
+    border-radius: 20px; 
+}
+
+a#btn-refresh {
+    display: none; 
+    float: right; 
+    padding: 10px;
+    margin: 0;
+    border-radius: 20px; 
+}
+
+span#timer {
+    display: none; 
+    margin-right: 30px;
+    font-family: Western, cursive;
+    font-weight: bold;
+    color: #1a1a1a;
+}
+
+h3#title-quiz {
+    text-align: center; 
+    color: #31678f; 
+    background-color: #f2f5f7; 
+    border-color: #bce8f1;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    font-size: 24px;
+    font-family: inherit;
+    font-weight: 500;
+    box-sizing: border-box;
+    font-weight: bold;
+}
+
+div#score {
+    margin-left: 36px;
+}
+
+ol.questions {
+    list-style: none;
+}
+
+ol > li.title-question {
+    padding: 15px 10px 0px 10px;
+    border-radius: 10px;    
+}
+
+button#btn_submit, button#btn-refresh {
+    display: none;
+    margin-right: 30px; 
+}
+
+span#created_at {
+    position: absolute; 
+    font-weight: bold; 
+    color: #bfb6b5; 
+    bottom: 8px;
+    right: 8px;
+}
+
+div a#btn-menu {
+    float: left; 
+    padding: 7px 15px;
+    margin-left: 52px;
+}
+
+div#topic_id {
+    width: 250px;
+    height: 110px; 
+    padding: 10px 19px 0px 19px;
+    margin: 0px 6px 15px 8px;
+}
+
+ul.answer {
+    list-style: none; 
+    margin-bottom: 15px;
+}
+
+span.question-num {
+    font-size: 18px; 
+    float: left;
+}
+
+span.question {
+    display: inline-block; 
+}
+
+input.answers {
+    /*display: none;*/
+}
+
+label.labels {
+    display: block;
 }

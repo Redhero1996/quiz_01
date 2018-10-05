@@ -1,5 +1,5 @@
 @extends('main')
-@section('title', ' Mini Test')
+@section('title', ' Mini Test ')
 @section('content')
     <div class="row">
         <div class="col-sm-2">
@@ -8,7 +8,7 @@
                 <div class="sidebar-content hidden-sm-down">
                     <ul class="nav nav-pills flex-column" id="menu">
                         <li class="view overlay z-depth-1-half">
-                            <a class="nav-link active" href="{{ url('/') }}">{{ trans('category') }} <span class="sr-only">(current)</span></a>
+                            <a class="nav-link active" href="{{ url('/') }}">{{ trans('translate.category') }} <span class="sr-only">(current)</span></a>
                             <div class="mask rgba-white-slight"></div>
                         </li>
                         @foreach ($categories as $category)
@@ -23,13 +23,13 @@
         <div class="col-md-9" id="topics">
             <p class="mt-3"></p>
             @foreach ($topics as $topic)
-                <a class="chip chip-lg light-blue lighten-4" href="#">
+                <a class="chip chip-lg light-blue lighten-4" href="{{ route('quiz', [$topic->category->slug, $topic->slug]) }}">
                     <div class="calendar">
                         <div class="year">{{ $topic->created_at['year'] }}</div>
-                        <div class="day">{{ $topic->created_at['month'] }}
+                        <div class="day">{{ $topic->created_at['day'] }}
                             <div id="line"></div>
                         </div>
-                        <div class="month">{{ $topic->created_at['day'] }}</div>
+                        <div class="month">{{ $topic->created_at['month'] }}</div>
                     </div>
                     <div class="div-content">
                         {{ $topic->name }}
@@ -37,9 +37,9 @@
                 </a>
                 <p class="row-space"></p>
             @endforeach
-        </div>
-        <div class="row" id="paginate">
-            {!! $topics->links() !!}
+            <div class="row" id="paginate">
+                {!! $topics->links() !!}
+            </div>
         </div>
     </div>
 @endsection
@@ -69,17 +69,17 @@
                     datatype: 'json',
                     success: function(data) {
                         $('#topics').empty();
-                        $.each(data, function(key, topic) {
+                        $.each(data.topics, function(key, topic) {
                             date = topic.created_at;
                             $('#topics').append(
                                 `<p class="mt-3"></p>
-                                    <a href="#" class="chip chip-lg light-blue lighten-4 waves-effect">
+                                    <a href="`+ data.category_slug + `/` + topic.slug +`" class="chip chip-lg light-blue lighten-4 waves-effect">
                                         <div class="calendar">
                                             <div class="year">`+ date.year +`</div>
-                                            <div class="day">`+ date.month +`
+                                            <div class="day">`+ date.day +`
                                                 <div id="line"></div>
                                             </div>
-                                            <div class="month">`+ date.day +`</div>
+                                            <div class="month">`+ date.month +`</div>
                                         </div>
                                         <div class="div-content">
                                             `+ topic.name +`
