@@ -1,76 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Register</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	@include('layouts._head')
+    <title>{{ trans('translate.title', ['title' => 'Đăng ký']) }}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    @include('layouts._head')
 </head>
 <body>
-    <!-- Material form register -->
-    <div class="card">
-        <h5 class="card-header info-color white-text text-center py-4">
-            <strong>Sign up</strong>
-        </h5>
-        <!--Card content-->
-        <div class="card-body px-lg-5 pt-0">
-            <!-- Form -->
-            {!! Form::open(['route' => 'register', 'method' => 'POST', 'class' => 'text-center']) !!}
-                <div class="md-form mt-5">
-                    {!! Form::text('name', null, ['class' => 'form-control', 'id' => 'materialRegisterFormName']) !!}
-                    {!! Form::label('materialRegisterFormName', 'Username') !!}
-                    @if($errors->has('name'))
-                        <span class="help-block" style="color: red;">
-                            <strong>{{ $errors->first('name') }}</strong>
-                        </span>
-                    @endif
-                </div>
-                <!-- E-mail -->
-                <div class="md-form mt-0">
-                    {!! Form::email('email', null, ['class' => 'form-control', 'id' => 'materialRegisterFormEmail']) !!}
-                    {!! Form::label('materialRegisterFormEmail', 'E-mail') !!}
-                    @if($errors->has('email'))
-                        <span class="help-block" style="color: red;">
-                            <strong>{{ $errors->first('email') }}</strong>
-                        </span>
-                    @endif
-                </div>
-                <!-- Password -->
-                <div class="md-form">
-                    {!! Form::password('password', ['class' => 'form-control', 'id' => 'materialRegisterFormPassword', 'aria-describedby' => 'materialRegisterFormPasswordHelpBlock']) !!}
-                    {!! Form::label('materialRegisterFormPassword', 'Password') !!}
-                    @if($errors->has('password'))
-                        <span class="help-block" style="color: red;">
-                            <strong>{{ $errors->first('password') }}</strong>
-                        </span>
-                    @endif
-                </div>
-                 <div class="md-form">
-                    {!! Form::password('password_confirmation', ['class' => 'form-control', 'id' => 'materialRegisterFormPassword', 'aria-describedby' => 'materialRegisterFormPasswordHelpBlock']) !!}
-                    {!! Form::label('materialRegisterFormPassword', 'Confirm Password') !!}
-                </div>
-                <!-- Sign up button -->
-                {!! Form::submit('Sign up', ['class' => 'btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0']) !!}
-                <!-- Social register -->
-                <p>or sign up with:</p>
-                <a type="button" class="btn-floating btn-fb btn-sm">
-                    <i class="fa fa-facebook"></i>
-                </a>
-                <a type="button" class="btn-floating btn-tw btn-sm">
-                    <i class="fa fa-twitter"></i>
-                </a>
-                <a type="button" class="btn-floating btn-li btn-sm">
-                    <i class="fa fa-linkedin"></i>
-                </a>
-                <a type="button" class="btn-floating btn-git btn-sm">
-                    <i class="fa fa-github"></i>
-                </a>
-                <hr>
-            {!! Form::close() !!}
-            <!-- Form -->
-          </div>
+    <div class="container-fluid register">
+        <!-- Default form register -->
+        {!! Form::open(['route' => 'register', 'method' => 'POST', 'class' => 'text-center border border-light p-5']) !!}
+            <p class="h4 mb-4">{{ trans('translate.title', ['title' => 'ĐĂNG KÝ']) }}</p>
+            {!! Form::text('name', null, ['class' => 'form-control username', 'id' => 'defaultRegisterFormFirstName', 'placeholder' => trans('translate.username')]) !!}
+            @if ($errors->has('name'))
+                <p class="help-block validated" role="alert">
+                    <strong>{{ $errors->first('name') }}</strong>
+                </p>
+            @endif
+            <!-- E-mail -->
+            {!! Form::email('email', null, ['class' => 'form-control mt-4 email', 'id' => 'defaultRegisterFormEmail', 'placeholder' => 'E-mail']) !!}
+            @if ($errors->has('email'))
+                <p class="help-block validated" role="alert">
+                    <strong>{{ $errors->first('email') }}</strong>
+                </p>
+            @endif
+            <!-- Password -->
+            {!! Form::password('password', ['class' => 'form-control mt-4 password', 'id' => 'defaultRegisterFormPassword', 'aria-describedby' => 'defaultRegisterFormPasswordHelpBlock', 'placeholder' => trans('translate.password')]) !!}
+            @if ($errors->has('password'))
+                <p class="help-block validated" role="alert">
+                    <strong>{{ $errors->first('password') }}</strong>
+                </p>
+            @endif
+            {!! Form::password('password_confirmation', ['class' => 'form-control mt-4 password-confirm', 'id' => 'defaultRegisterFormConfirmPassword', 'aria-describedby' => 'defaultRegisterFormPasswordHelpBlock', 'placeholder' => trans('translate.confirm_password')]) !!}
+            <!-- Sign up button -->
+            {!! Form::button(trans('translate.title', ['title' => 'Đăng ký']), ['type' => 'submit', 'class' => 'btn btn-info my-4 btn-block register']) !!}
+            <!-- Register -->
+            <p>{{ trans('translate.warning', ['warn' => 'đã']) }}
+                <a href="{{ route('login') }}">{{ trans('translate.title', ['title' => 'Đăng nhập']) }}</a>
+            </p>
+            <!-- Social register -->
+            <p>{{ trans('translate.social', ['title' => 'đăng ký']) }}</p>
+            <a class="light-blue-text mx-2">
+                <i class="fab fa-facebook"></i>
+            </a>
+            <a class="light-blue-text mx-2">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a class="light-blue-text mx-2">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a class="light-blue-text mx-2">
+                <i class="fab fa-github"></i>
+            </a>
+        {!! Form::close() !!}
+        <!-- Default form register -->
     </div>
-    <!-- Material form register -->
     @include('layouts._script')
 </body>
 </html>
