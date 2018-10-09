@@ -11,11 +11,15 @@ return [
     'time_clock' => ':time phút',
 
     // login-register
-    'title' => ':title',
+    'login' => 'Đăng nhập',
+    'register' => 'Đăng ký',
+    'logout' => 'Đăng xuất',
     'forget_pass' => 'Quên mật khẩu?',
     'remember' => 'Nhớ mật khẩu',
-    'warning' => 'Bạn :warn có tài khoản?',
-    'social' => 'hoặc :title với:',
+    'not' => 'Bạn chưa có tài khoản?',
+    'haven' => 'Bạn đã có tài khoản?',
+    'login_social' => 'hoặc đăng nhập với:',
+    'register_social' => 'hoặc đăng ký với:',
     'permission' => 'Bạn phải <a href="/login">Đăng nhập</a> mới xem được đề thi',
     'password' => 'Mật khẩu',
     'username' => 'Tên người dùng',
@@ -32,4 +36,6 @@ return [
     'alert' => 'Những thay đổi sẽ không được lưu. Bạn chắc muốn rời không?',
     'score' => 'Bạn đúng:',
     'total' => 'Tổng điểm:',
+    'oops' => 'Cảnh báo!',
+    'warn_alert' => 'Bạn đã hết thời gian làm bài',
 ];
