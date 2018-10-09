@@ -32,7 +32,7 @@ class Topic extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class)->withPivot('answered');
     }
 
     public function getCreatedAtAttribute()
