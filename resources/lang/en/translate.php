@@ -13,7 +13,7 @@ return [
     // login-register
     'login' => 'Login',
     'register' => 'Register',
-    'logout' => 'Đăng xuất',
+    'logout' => 'Logout',
     'forget_pass' => 'Forgot password?',
     'remember' => 'Remember me',
     'not' => 'You are not a member?',
@@ -30,6 +30,10 @@ return [
     'contact' => 'Contact',
     'submit' => 'Submit',
     'account' => 'Account',
+    'question' => 'Questions',
+    'rank' => 'Top',
+    'member' => 'Member',
+    'top' => 'Top member',
 
     // test page
     'alert' => 'Are you sure you want to leave?',
@@ -37,4 +41,20 @@ return [
     'total' => 'Total:',
     'oops' => 'Oops!',
     'warn_alert' => 'Time out',
+
+    // proflie
+    'avatar' => 'Avatar',
+    'upload' => 'Upload New Photo',
+    'info_account' => 'Profile',
+    'change_password' => 'Change your password',
+    'username' => 'Username',
+    'first_name' => 'First Name',
+    'last_name' => 'Last Name',
+    'phone_number' => 'Phone Number',
+    'address' => 'Address',
+    'update_account' => 'Update Account',
+    'succ_acount' => 'Your account have been successfully',
+    'numb_topic' => 'Number',
+    'topic' => 'Topic',
+    'total_profile' => 'Total',
 ];

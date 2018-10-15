@@ -6,6 +6,7 @@ use App\Models\Answer;
 use App\Models\Category;
 use App\Models\Question;
 use App\Models\Topic;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,6 +15,9 @@ class QuizController extends Controller
     public function category($category_id)
     {
         $topics = Topic::where('category_id', $category_id)->latest('id')->get();
+        foreach ($topics as $key => $topic) {
+            $topics[$key]['count'] = count($topic->questions);
+        }
         $category = Category::whereId($category_id)->get();
 
         return response()->json([
@@ -99,5 +103,46 @@ class QuizController extends Controller
         ];
 
         return $dataResponse;
+    }
+
+    public function reviewQuiz($category_slug, $topic_slug, $id)
+    {
+        $alphabet = [
+            'A', 'B', 'C', 'D', 'E',
+            'F', 'G', 'H', 'I', 'J',
+            'K', 'L', 'M', 'N', 'O',
+            'P', 'Q', 'R', 'S', 'T',
+            'U', 'V', 'W', 'X', 'Y',
+            'Z',
+        ];
+        $topic = Topic::whereSlug($topic_slug)->first();
+        $questions = $topic->questions()->where('topic_id', $topic->id)->get();
+        $data = [];
+        foreach ($topic->users as $key => $user) {
+            $answered = json_decode($user->pivot->answered, true);
+            if ($user->pivot->id == $id) {
+                $data['total'] = $user->pivot->total;
+                foreach ($questions as $key => $question) {
+                    $answers = Answer::where('question_id', $question->id)->get();
+                    foreach ($answered as $k => $answer) {
+                        if ($key == $k) {
+                            $data['topic'][$key] = [
+                                'question' => $question,
+                                'answers' => $answers,
+                                'answered' => $answer,
+                            ];
+                            break;
+                        } else {
+                            $data['topic'][$key] = [
+                                'question' => $question,
+                                'answers' => $answers,
+                            ];
+                        }
+                    }
+                }
+            }
+        }
+
+        return view('pages.review', compact('topic', 'data', 'alphabet'));
     }
 }

@@ -1,4 +1,4 @@
-<nav class="mb-1 navbar navbar-expand-lg navbar-dark special-color-dark fixed-top">
+<nav class="mb-1 navbar fixed-top navbar-expand-lg navbar-dark special-color-dark scrolling-navbar">
     <a class="navbar-brand quiz" href="{{ url('/') }}">QUIZ</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-3"
     aria-controls="navbarSupportedContent-3" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,10 +28,14 @@
             @if(Auth::check())
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img class="avatar" src="#"> {{ Auth::user()->name }}
+                        @if (Auth::user()->avatar == null)
+                            <img class="avatar" src="{{ config('filesystems.photos_url') }}"> {{ Auth::user()->name }}
+                        @else
+                            <img class="avatar" src="{{ asset('images/' . Auth::user()->avatar) }}"> {{ Auth::user()->name }}
+                        @endif
                     </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-default ml-5" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="#"><i class="fas fa-user"></i> {{ trans('translate.account') }}</a>
+                        <a class="dropdown-item" href="{{ route('user.profile', [Auth::user()->name, Auth::user()->id]) }}"><i class="fas fa-user"></i> {{ trans('translate.account') }}</a>
                         <a class="dropdown-item" href="{{ route('logout') }}"><i class="fas fa-sign-out-alt"></i> {{ trans('translate.logout') }}</a>
                     </div>
                 </li>

@@ -2,12 +2,11 @@
 @section('content')
     <div class="row">
         <div class="col-sm-2">
-            <nav id="nav-sidebar" class="bg-faded">
-                <p class="mt-3"></p>
+            <nav id="nav-sidebar" class="bg-faded mt-3">
                 <div class="sidebar-content hidden-sm-down">
                     <ul class="nav nav-pills flex-column" id="menu">
                         <li class="view overlay z-depth-1-half">
-                            <a class="nav-link active" href="{{ url('/') }}">{{ trans('translate.category') }} <span class="sr-only">(current)</span></a>
+                            <a class="nav-link active" href="{{ url('/') }}">{{ trans('translate.category') }} </a>
                             <div class="mask rgba-white-slight"></div>
                         </li>
                         @foreach ($categories as $category)
@@ -19,8 +18,7 @@
                 </div>
             </nav>
         </div>
-        <div class="col-md-9" id="topics">
-            <p class="mt-3"></p>
+        <div class="col-md-6 mt-3" id="topics">
             @foreach ($topics as $topic)
                 <a class="chip chip-lg light-blue lighten-4" href="{{ route('quiz', [$topic->category->slug, $topic->slug]) }}">
                     <div class="calendar">
@@ -33,6 +31,17 @@
                     <div class="div-content">
                         {{ $topic->name }}
                     </div>
+                    <div class="div-quest">
+                        <div class="quest">
+                            <i class="fas fa-pencil-alt"></i>
+                            <span>{{ count($topic->questions) }} {{ trans('translate.question') }}</span>
+                        </div>
+                        <div class="time">
+                            <i class="far fa-clock"></i>
+                            <span>{{ trans('translate.time_clock', ['time' => config('constants.minute')]) }}</span>
+                        </div>
+                    </div>
+                    <i class="fas fa-check-circle text-success"></i>
                 </a>
                 <p class="row-space"></p>
             @endforeach
@@ -40,10 +49,33 @@
                 {!! $topics->links() !!}
             </div>
         </div>
+        <div class="col-md-4 mt-3 rank">
+            <h3 class="text-center font-weight-bold">{{ trans('translate.top') }}</h3>
+            <div class="card card-cascade narrower">
+                <table class="table table-striped table-responsive-md btn-table text-center">
+                    <thead class="rank-top">
+                        <tr>
+                            <th>{{ trans('translate.rank') }}</th>
+                            <th>{{ trans('translate.member') }}</th>
+                            <th>{{ trans('translate.total_profile') }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row"></th>
+                            <td></td>
+                           <td></td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
     </div>
 @endsection
 @section('scripts')
     <script type="text/javascript">
+
         $(document).ready(function () {
             $('ul#menu > li.nav-item').click(function () {
                 // handle click event
@@ -71,19 +103,28 @@
                         $.each(data.topics, function(key, topic) {
                             date = topic.created_at;
                             $('#topics').append(
-                                `<p class="mt-3"></p>
-                                    <a href="`+ data.category_slug + `/` + topic.slug +`" class="chip chip-lg light-blue lighten-4 waves-effect">
-                                        <div class="calendar">
-                                            <div class="year">`+ date.year +`</div>
-                                            <div class="day">`+ date.day +`
-                                                <div id="line"></div>
-                                            </div>
-                                            <div class="month">`+ date.month +`</div>
+                                `<a href="`+ data.category_slug + `/` + topic.slug +`" class="chip chip-lg light-blue lighten-4 waves-effect">
+                                    <div class="calendar">
+                                        <div class="year">`+ date.year +`</div>
+                                        <div class="day">`+ date.day +`
+                                            <div id="line"></div>
                                         </div>
-                                        <div class="div-content">
-                                            `+ topic.name +`
+                                        <div class="month">`+ date.month +`</div>
+                                    </div>
+                                    <div class="div-content">
+                                        `+ topic.name +`
+                                    </div>
+                                    <div class="div-quest">
+                                        <div class="quest">
+                                            <i class="fas fa-pencil-alt"></i>
+                                            <span>`+ topic.count +` {{ trans('translate.question') }}` +`</span>
                                         </div>
-                                    </a>
+                                        <div class="time">
+                                            <i class="far fa-clock"></i>
+                                            <span>{{ trans('translate.time_clock', ['time' => config('constants.minute')]) }}</span>
+                                        </div>
+                                    </div>
+                                </a>
                                 <p class="row-space"></p>`
                             );
                         });

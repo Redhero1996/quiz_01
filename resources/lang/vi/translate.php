@@ -31,6 +31,10 @@ return [
     'contact' => 'Liên hệ',
     'submit' => 'Nộp bài',
     'account' => 'Tài khoản',
+    'question' => 'Câu',
+    'rank' => 'Thứ hạng',
+    'member' => 'Thành viên',
+    'top' => 'Bảng xếp hạng',
 
     // test page
     'alert' => 'Những thay đổi sẽ không được lưu. Bạn chắc muốn rời không?',
@@ -38,4 +42,20 @@ return [
     'total' => 'Tổng điểm:',
     'oops' => 'Cảnh báo!',
     'warn_alert' => 'Bạn đã hết thời gian làm bài',
+
+    // proflie
+    'avatar' => 'Avatar',
+    'upload' => 'Tải ảnh lên',
+    'info_account' => 'Thông tin tài khoản',
+    'change_password' => 'Thay đổi mật khẩu',
+    'username' => 'Tên người dùng',
+    'first_name' => 'Tên',
+    'last_name' => 'Họ',
+    'phone_number' => 'Số điện thoại',
+    'address' => 'Địa chỉ',
+    'update_account' => 'Lưu thông tin',
+    'succ_acount' => 'Tài khoản đã được cập nhật',
+    'numb_topic' => 'Lần thi',
+    'topic' => 'Đề thi',
+    'total_profile' => 'Điểm',
 ];
