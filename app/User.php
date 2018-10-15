@@ -2,6 +2,9 @@
 
 namespace App;
 
+use App\Models\Comment;
+use App\Models\Role;
+use App\Models\Topic;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -43,7 +46,11 @@ class User extends Authenticatable
 
     public function topics()
     {
-        return $this->belongsToMany(Topic::class)->withPivot('answered')->withTimestamps();
+        return $this->belongsToMany(Topic::class)->withPivot([
+            'id',
+            'answered',
+            'total',
+        ])->withTimestamps();
     }
 
     public function comments()

@@ -7,7 +7,7 @@ div.container-fluid.login,  div.container-fluid.register{
     margin-top: 20px;
 }
 
-input.username, input.email, input.password, input.password-confirm, button.login, button.register {
+input.username, input.email, input.password, input.password-confirm, button.login, button.register, {
     border-radius: 20px;
 }
 
@@ -99,8 +99,33 @@ ul#menu > li:hover {
 }
 
 div.div-content {
+    float: left;
     display: inline-block; 
-    line-height: 55px;
+    width: 300px;
+    margin-top: 14px;
+}
+
+div.div-quest {
+    float: left;
+    display: inline-block;  
+}
+
+div.quest {
+    color: #fff;
+    width: 100px;
+    height: 25px;
+    background-color: #33abe5;
+    border-radius: 50px;
+    text-align: center;
+}
+
+div.time {
+    color: #fff;
+    text-align: center;
+    width: 100px;
+    height: 25px;
+    background-color: #7bd7b1;
+    border-radius: 50px;
 }
 
 div#line {
@@ -144,6 +169,7 @@ a#restart-test {
 li.timer {
     display: none; 
     margin: 13px 10px 0px 0px;
+    line-height: 17px;
     font-family: Western, cursive;
     font-weight: bold;
     color: #fff;
@@ -189,7 +215,7 @@ ol > li.title-question {
 button.btn-submit {
     display: none;
     border-radius: 20px;
-    margin-bottom: 25px;
+    margin: 2px 20px 25px 0px;
     padding: 9px 15px;
 }
 
@@ -274,4 +300,103 @@ input.form-check-input {
 img.avatar {
     height: 25px;
     border-radius: 50% 50%;
+}
+
+img.avatar.profile {
+    height: 200px !important;
+    width: 200px;
+}
+
+main.main {
+    margin-top: 6%;
+}
+
+h5.font-weight-bold {
+    text-align: center;
+    line-height: 70px;
+    color: #fff;
+    font-family: Western, cursive;
+}
+
+div.view.view-cascade.gradient-card-header.mdb-color {
+    height: 75px;
+    background-color: #929fba;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top: -25px;
+    position: relative;
+    z-index: 1000;
+    border-radius: 5px;
+    box-shadow: 0 5px 11px 0 rgba(0,0,0,.18), 0 4px 15px 0 rgba(0,0,0,.15);
+}
+
+div.view.view-cascade.gradient-card-header.mdb-color.avatar {
+    width: 90%;
+}
+
+div.view.view-cascade.gradient-card-header.mdb-color.account {
+    width: 95%;
+}
+
+div.card.card-cascade.narrower {
+    top: 30px;
+}
+
+div.row.password {
+    margin: 12px 0px 0px 0px;
+    line-height: 16px;
+}
+
+input.change {
+    margin-right: 9px;
+}
+
+.btn.btn-info.btn-rounded.btn-sm.waves-effect.waves-light, .waves-input-wrapper {
+    border-radius: 50px;
+}
+
+.row.flex-center.upfile {
+    position: relative;
+    overflow: hidden;
+}
+
+input.upload-file {
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+}
+
+a.review {
+    color: #33b5e5 !important;
+}
+
+a.btn-refresh.review {
+    display: inline-block;
+    color: #fff !important;
+}
+
+input.form-check-input.answer {
+    display: inline-block;
+}
+
+div.card.card-cascade.narrower {
+    top: 0px !important;
+}
+
+svg.svg-inline--fa.fa-check-circle.fa-w-16 {
+    margin-left: 15%;
+}
+
+div.rank {
+    font-family: Western, cursive ;
+}
+
+thead.rank-top {
+    background-color: #87c52e;
+}
+
+thead.rank-top > tr > th {
+    font-weight: bold;
+    color: #fff;
 }

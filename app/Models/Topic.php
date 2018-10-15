@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Topic extends Model
@@ -32,7 +33,11 @@ class Topic extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class)->withPivot('answered');
+        return $this->belongsToMany(User::class)->withPivot([
+            'id',
+            'answered',
+            'total',
+        ]);
     }
 
     public function getCreatedAtAttribute()
