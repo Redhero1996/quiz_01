@@ -65,6 +65,4 @@ return [
         ],
 
     ],
-    'photos_url' => public_path('images') . '/avatar-default-icon.png',
-
 ];

@@ -7,21 +7,21 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent-3">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item homepage {{ Request::is('/') ? 'active' : "" }}">
-                <a class="nav-link" href="{{ url('/') }}">{{ trans('translate.homepage') }}
+                <a class="nav-link" href="{{ url('/') }}">{{ __('translate.homepage') }}
                     <span class="sr-only">(current)</span>
                 </a>
             </li>
             <li class="nav-item about {{ Request::is('about') ? 'active' : "" }}">
-                <a class="nav-link" href="{{ url('about') }}">{{ trans('translate.about') }}</a>
+                <a class="nav-link" href="{{ url('about') }}">{{ __('translate.about') }}</a>
             </li>
             <li class="nav-item contact {{ Request::is('contact') ? 'active' : "" }}">
-                <a class="nav-link" href="{{ url('contact') }}">{{ trans('translate.contact') }}</a>
+                <a class="nav-link" href="{{ url('contact') }}">{{ __('translate.contact') }}</a>
             </li>
         </ul>
         <ul class="nav navbar-nav test">
             <li class="nav-item timer">{{ config('constants.minute') }}:{{ config('constants.second') }}</li>
             <li class="nav-item">
-                {!! Form::button(trans('translate.submit'), ['type' => 'submit', 'class' => 'btn btn-primary btn-submit']) !!}
+                {!! Form::button(__('translate.submit'), ['type' => 'submit', 'class' => 'btn btn-primary btn-submit']) !!}
             </li>
         </ul>
         <ul class="navbar-nav ml-auto nav-flex-icons">
@@ -29,22 +29,22 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         @if (Auth::user()->avatar == null)
-                            <img class="avatar" src="{{ config('filesystems.photos_url') }}"> {{ Auth::user()->name }}
+                            <img class="avatar" src="{{ config('view.image_paths.images') . 'avatar-default-icon.png' }}"> {{ Auth::user()->name }}
                         @else
-                            <img class="avatar" src="{{ asset('images/' . Auth::user()->avatar) }}"> {{ Auth::user()->name }}
+                            <img class="avatar" src="{{ config('view.image_paths.images') . Auth::user()->avatar }}"> {{ Auth::user()->name }}
                         @endif
                     </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-default ml-5" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="{{ route('user.profile', [Auth::user()->name, Auth::user()->id]) }}"><i class="fas fa-user"></i> {{ trans('translate.account') }}</a>
-                        <a class="dropdown-item" href="{{ route('logout') }}"><i class="fas fa-sign-out-alt"></i> {{ trans('translate.logout') }}</a>
+                        <a class="dropdown-item" href="{{ route('user.profile', [Auth::user()->name, Auth::user()->id]) }}"><i class="fas fa-user"></i> {{ __('translate.account') }}</a>
+                        <a class="dropdown-item" href="{{ route('logout') }}"><i class="fas fa-sign-out-alt"></i> {{ __('translate.logout') }}</a>
                     </div>
                 </li>
             @else
                 <li class="nav-item">
-                    <a class="nav-link btn-login" href="{{ route('login') }}">{{ trans('translate.login') }}</a>
+                    <a class="nav-link btn-login" href="{{ route('login') }}">{{ __('translate.login') }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('register') }}">{{ trans('translate.register') }}</a>
+                    <a class="nav-link" href="{{ route('register') }}">{{ __('translate.register') }}</a>
                 </li>
             @endif
         </ul>

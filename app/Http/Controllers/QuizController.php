@@ -17,6 +17,11 @@ class QuizController extends Controller
         $topics = Topic::where('category_id', $category_id)->latest('id')->get();
         foreach ($topics as $key => $topic) {
             $topics[$key]['count'] = count($topic->questions);
+            foreach ($topic->users as $user) {
+                if (Auth::check() && Auth::user()->id == $user->pivot->user_id) {
+                    $topics[$key]['user'] = $user->pivot->user_id;
+                }
+            }
         }
         $category = Category::whereId($category_id)->get();
 
@@ -124,20 +129,27 @@ class QuizController extends Controller
                 $data['total'] = $user->pivot->total;
                 foreach ($questions as $key => $question) {
                     $answers = Answer::where('question_id', $question->id)->get();
-                    foreach ($answered as $k => $answer) {
-                        if ($key == $k) {
-                            $data['topic'][$key] = [
-                                'question' => $question,
-                                'answers' => $answers,
-                                'answered' => $answer,
-                            ];
-                            break;
-                        } else {
-                            $data['topic'][$key] = [
-                                'question' => $question,
-                                'answers' => $answers,
-                            ];
+                    if (!empty($answered)) {
+                        foreach ($answered as $k => $answer) {
+                            if ($key == $k) {
+                                $data['topic'][$key] = [
+                                    'question' => $question,
+                                    'answers' => $answers,
+                                    'answered' => $answer,
+                                ];
+                                break;
+                            } else {
+                                $data['topic'][$key] = [
+                                    'question' => $question,
+                                    'answers' => $answers,
+                                ];
+                            }
                         }
+                    } else {
+                        $data['topic'][$key] = [
+                            'question' => $question,
+                            'answers' => $answers,
+                        ];
                     }
                 }
             }
