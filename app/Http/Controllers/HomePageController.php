@@ -17,7 +17,7 @@ class HomePageController extends Controller
     public function home()
     {
         $categories = Category::all();
-        $topics = Topic::latest('id')->paginate();
+        $topics = Topic::latest('id')->where('status', 1)->paginate();
         $ranks = [];
         $select_table = DB::select(
             'select user_id, avg(max_score) as score, count(topic_id) as count_topic
@@ -29,7 +29,7 @@ class HomePageController extends Controller
             order by score desc;'
         );
         foreach ($select_table as $key => $select) {
-            foreach ($topics as $topic) {
+            foreach (Topic::all() as $topic) {
                 foreach ($topic->users as $user) {
                     if ($select->user_id == $user->id) {
                         $ranks[$key]['username'] = $user->name;

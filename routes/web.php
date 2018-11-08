@@ -37,8 +37,8 @@ Route::get('logout', 'HomePageController@logout')->name('logout');
 Route::get('category/{category_id}', 'QuizController@category');
 
 // Quiz page
-Route::get('{category_slug}/{topic_slug}', 'QuizController@quiz')->name('quiz');
-Route::get('{category_slug}/{topic_slug}/{id}', 'QuizController@reviewQuiz')->name('review');
+Route::get('{category}/{topic}', 'QuizController@quiz')->name('quiz');
+Route::get('{category}/{topic}/{id}', 'QuizController@reviewQuiz')->name('review');
 
 // handle question
 Route::get('question', 'QuizController@handleQuestion');

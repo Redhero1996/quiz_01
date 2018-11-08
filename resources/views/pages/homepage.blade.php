@@ -6,19 +6,27 @@
                 <div class="sidebar-content hidden-sm-down">
                     <ul class="nav nav-pills flex-column" id="menu">
                             <a class="nav-link active" href="{{ url('/') }}">{{ __('translate.category') }} </a>
-                            <div class="mask rgba-white-slight"></div>
-                        @foreach ($categories as $category)
-                        <li class="nav-item view overlay z-depth-1-half" value="{{ $category->id }}">
-                            <span class="nav-link">{{ $category->name }} ({{ count($category->topics) }})</span>
-                        </li>
-                        @endforeach
+                            <!-- Search form -->
+                            <form class="form-inline md-form form-sm active-pink-2 mt-2">
+                              <input class="form-control form-control-sm w-55 search" id="search" type="text" placeholder="Search" aria-label="Search">
+                              <i class="fa fa-search" aria-hidden="true"></i>
+                            </form>
+                            {{-- <div class="mask rgba-white-slight"></div> --}}
+                        <div id="show-search">
+                            @foreach ($categories as $category)
+                            <li class="nav-item view overlay z-depth-1-half" value="{{ $category->id }}">
+                                <span class="nav-link">{{ $category->name }} ({{ count($category->topics) }})</span>
+                            </li>
+                            @endforeach
+
+                        </div>
                     </ul>
                 </div>
             </nav>
         </div>
         <div class="col-md-6 mt-3" id="topics">
             @foreach ($topics as $topic)
-                <a class="chip chip-lg light-blue lighten-4" href="{{ route('quiz', [$topic->category->slug, $topic->slug]) }}">
+                <a class="chip chip-lg light-blue lighten-4 topic" id="{{ $topic->id }}" href="{{ route('quiz', [$topic->category->slug, $topic->slug]) }}">
                     <div class="calendar">
                         <div class="year">{{ $topic->created_at['year'] }}</div>
                         <div class="day">{{ $topic->created_at['day'] }}
@@ -82,9 +90,14 @@
 @endsection
 @section('scripts')
     <script type="text/javascript">
-
         $(document).ready(function () {
-            $('ul#menu > li.nav-item').click(function () {
+            $('#search').on('keyup', function() {
+                var value = $(this).val().toLowerCase();
+                $('#show-search li').filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+            $('ul#menu > div li.nav-item').click(function () {
                 // handle click event
                 $(this).attr('id', 'active');
                 var li_current = $(this).parents().find('li');

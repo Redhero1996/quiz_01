@@ -50,152 +50,21 @@
     </div>
 @endsection
 @section('scripts')
-    <script type="text/javascript">
-        var config = @json(config('constants'));
-        $(document).ready(function() {
-            $('.btn-test').click(function() {
-                $('.btn-test').hide();
-                $('.btn-refresh').show();
-                $('li.timer').show();
-                $('.form-check-input').show();
-                $('span#fifteen-min').hide();
-                $('.btn-submit').show();
-
-                // prevent when reload page
-                window.onbeforeunload = function() {
-                    return "{{ trans('translate.alert') }}";
-                }
-
-                // Timer countdown
-                var interval = setInterval(function() {
-                    var timer = $('li.timer').html();
-                    timer = timer.split(':');
-                    var minutes = parseInt(timer[0], parseInt(config.ten));
-                    var seconds = parseInt(timer[1], parseInt(config.ten));
-                    seconds--;
-                    if (minutes < parseInt(config.zero)) {
-                        return clearInterval(interval);
-                    }
-                    if (minutes < parseInt(config.ten)) {
-                        minutes = '0' + minutes;
-                    }
-                    if (seconds < parseInt(config.zero) && minutes != parseInt(config.zero)) {
-                        minutes--;
-                        seconds = parseInt(config.fifty_nine);
-                    } else if (seconds < parseInt(config.ten)) {
-                        seconds = '0' + seconds;
-                    }
-                    $('li.timer').html(minutes + ':' + seconds);
-                    if (minutes == parseInt(config.zero) && seconds <= parseInt(config.ten)) {
-                        $('li.timer').css('color', 'red');
-                        $('li.timer').fadeOut(parseInt(config.fifty));
-                        $('li.timer').fadeIn(parseInt(config.fifty));
-                        if (minutes == parseInt(config.zero) && seconds == parseInt(config.zero)) {
-                            clearInterval(interval);
-                            $.confirm({
-                                icon: 'fas fa-warning',
-                                type: 'red',
-                                title: '{{ trans('translate.oops') }}',
-                                content: '{{ trans('translate.warn_alert') }}',
-                                buttons: {
-                                    ok: function () {
-                                        $('div#check-all').submit();
-                                        checkSubmit();
-                                    },
-                                }
-                            });
-                        }
-                    }
-                }, parseInt(config.one_thousand));
-
-                // handle submit
-                $('.btn-submit').click(function() {
-                    window.onbeforeunload = function() {
-                        return null;
-                    };
-                    clearInterval(interval);
-                    checkSubmit();
-                });
-            });
-        });
-        function checkSubmit() {
-            var data = @json($data);
-            var topic = {{ $topic->id }};
-            var dataRequest = {};
-            for (i in data) {
-                var question_id = data[i].question.id;
-                var answers = data[i].answers;
-                var answered = [];
-                for (j in answers) {
-                    if ($(`input[name="${answers[j].id}"]`).is(':checked')) {
-                        var ans = parseInt($(`input[name="${answers[j].id}"]:checked`).val());
-                        answered.push(ans);
-                    }
-                }
-                one_question = {
-                    'topic' : topic,
-                    'question_id' : question_id,
-                    'answered' : answered
-                }
-                dataRequest[i] = one_question;
+    <script>
+        var quiz_request = {
+            config: @json(config('constants')),
+            data : @json($data),
+            topic : {!! $topic->id !!},
+            trans: {
+                alert: '{{ __('translate.alert') }}',
+                opps: '{{ __('translate.oops') }}',
+                warn_alert: '{{ __('translate.warn_alert') }}',
+                score: '{{ __('translate.score') }}',
+                total: '{{ __('translate.total') }}',
+                try_again: '{{ __('translate.try_again') }}',
             }
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                }
-            });
-            $.ajax({
-                url: '/question',
-                type: 'GET',
-                data : { dataRequest },
-                success:function(dataResponse) {
-                    questionArr = dataResponse.correct;
-                    if (dataResponse.total >= (questionArr.length * (config.point) * (config.point_sevent))) {
-                        for (var i = 0; i < questionArr.length; i++) {
-                            if (questionArr[i].answer) {
-                                for (var j = 0; j < questionArr[i].answered.length; j++) {
-                                    $(`input[name=${questionArr[i].answered[j]}]`).closest('label').after(`
-                                        <i class="fas fa-check text-success"></i>
-                                    `);
-                                }
-                            } else {
-                                for (var j = 0; j < questionArr[i].answered.length; j++) {
-                                    if (jQuery.inArray(questionArr[i].answered[j], questionArr[i].correct_ans) != config.negative) {
-                                        $(`input[name=${questionArr[i].answered[j]}]`).closest('label').css({' color' : '#45ba28' }).after(`
-                                            <i class="fas fa-check text-success"></i>
-                                        `);
-                                    } else {
-                                        $(`input[name=${questionArr[i].answered[j]}]`).closest('label').after(`
-                                            <i class="fas fa-times text-danger"></i>
-                                        `);
-                                    }
-                                }
-                                for (var k = 0; k < questionArr[i].correct_ans.length; k++) {
-                                    $(`input[name=${questionArr[i].correct_ans[k]}]`).closest('label').css({ 'color' : '#45ba28' });
-                                }
-                            }
-                        }
-                        $('div#score').addClass('alert alert-warning').append(`
-                            <span class="alert-link">{{ trans('translate.score') }} ${dataResponse.score}/${questionArr.length}</span>
-                            <span class="alert-link">{{ trans('translate.total') }} ${dataResponse.total}/${questionArr.length * (config.point)} (${((dataResponse.total / (questionArr.length * (config.point))) * (config.hundred)).toFixed(config.two)}%)</span>
-                        `);
-                        $('li.explain').show();
-                    } else {
-                        $('div#score').addClass('alert alert-warning').append(`
-                            <span class="alert-link">{{ trans('translate.score') }} ${dataResponse.score}/${questionArr.length}</span>
-                            <span class="alert-link">{{ trans('translate.total') }} ${dataResponse.total}/${questionArr.length * (config.point)} (${((dataResponse.total / (questionArr.length * (config.point))) * (config.hundred)).toFixed(config.two)}%)</span>
-                            <span class="alert-link">{{ trans('translate.try_again') }} <i class="far fa-smile-wink text-success"></i>
-                            </span>
-                        `);
-                    }
-                    $('input').prop('disabled', true);
-                    $('button.btn-submit').hide();
-                    $('button.btn-refresh').show();
-                    $('html, body').animate({
-                        scrollTop : config.zero,
-                    });
-                }
-            });
         }
+        var token = '{{ Session::token() }}';
     </script>
+    {!! Html::script('js/quiz.js') !!}
 @endsection
