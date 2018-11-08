@@ -35,6 +35,7 @@ return [
     'rank' => 'Thứ hạng',
     'member' => 'Thành viên',
     'top' => 'Bảng xếp hạng',
+    'count_topic' => 'Số đề thi đã làm',
 
     // test page
     'alert' => 'Những thay đổi sẽ không được lưu. Bạn chắc muốn rời không?',
@@ -42,6 +43,8 @@ return [
     'total' => 'Tổng điểm:',
     'oops' => 'Cảnh báo!',
     'warn_alert' => 'Bạn đã hết thời gian làm bài',
+    'try_again' => 'Bạn phải đạt 70% mới xem được đáp án! Cố lên!',
+    'explain' => 'Giải thích',
 
     // proflie
     'avatar' => 'Avatar',

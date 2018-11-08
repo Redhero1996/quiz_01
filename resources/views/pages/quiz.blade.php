@@ -32,6 +32,10 @@
                                     </div>
                                 @endforeach
                             </ul>
+                            <li class="alert alert-secondary explain">
+                                <h4 class="font-weight-bold font-italic explain">{{ trans('translate.explain') }}</h4>
+                                <span class="ml-4">{{ $value['question']->explain }}</span>
+                            </li>
                         </ol>
                     @endforeach
                 </div>
@@ -146,35 +150,45 @@
                 data : { dataRequest },
                 success:function(dataResponse) {
                     questionArr = dataResponse.correct;
-                    for (var i = 0; i < questionArr.length; i++) {
-                        if (questionArr[i].answer) {
-                            for (var j = 0; j < questionArr[i].answered.length; j++) {
-                                $(`input[name=${questionArr[i].answered[j]}]`).closest('label').after(`
-                                    <i class="fas fa-check text-success"></i>
-                                `);
-                            }
-                        } else {
-                            for (var j = 0; j < questionArr[i].answered.length; j++) {
-                                if (jQuery.inArray(questionArr[i].answered[j], questionArr[i].correct_ans) != config.negative) {
-                                    $(`input[name=${questionArr[i].answered[j]}]`).closest('label').css({' color' : '#45ba28' }).after(`
+                    if (dataResponse.total >= (questionArr.length * (config.point) * (config.point_sevent))) {
+                        for (var i = 0; i < questionArr.length; i++) {
+                            if (questionArr[i].answer) {
+                                for (var j = 0; j < questionArr[i].answered.length; j++) {
+                                    $(`input[name=${questionArr[i].answered[j]}]`).closest('label').after(`
                                         <i class="fas fa-check text-success"></i>
                                     `);
-                                } else {
-                                    $(`input[name=${questionArr[i].answered[j]}]`).closest('label').after(`
-                                        <i class="fas fa-times text-danger"></i>
-                                    `);
+                                }
+                            } else {
+                                for (var j = 0; j < questionArr[i].answered.length; j++) {
+                                    if (jQuery.inArray(questionArr[i].answered[j], questionArr[i].correct_ans) != config.negative) {
+                                        $(`input[name=${questionArr[i].answered[j]}]`).closest('label').css({' color' : '#45ba28' }).after(`
+                                            <i class="fas fa-check text-success"></i>
+                                        `);
+                                    } else {
+                                        $(`input[name=${questionArr[i].answered[j]}]`).closest('label').after(`
+                                            <i class="fas fa-times text-danger"></i>
+                                        `);
+                                    }
+                                }
+                                for (var k = 0; k < questionArr[i].correct_ans.length; k++) {
+                                    $(`input[name=${questionArr[i].correct_ans[k]}]`).closest('label').css({ 'color' : '#45ba28' });
                                 }
                             }
-                            for (var k = 0; k < questionArr[i].correct_ans.length; k++) {
-                                $(`input[name=${questionArr[i].correct_ans[k]}]`).closest('label').css({ 'color' : '#45ba28' });
-                            }
                         }
+                        $('div#score').addClass('alert alert-warning').append(`
+                            <span class="alert-link">{{ trans('translate.score') }} ${dataResponse.score}/${questionArr.length}</span>
+                            <span class="alert-link">{{ trans('translate.total') }} ${dataResponse.total}/${questionArr.length * (config.point)} (${((dataResponse.total / (questionArr.length * (config.point))) * (config.hundred)).toFixed(config.two)}%)</span>
+                        `);
+                        $('li.explain').show();
+                    } else {
+                        $('div#score').addClass('alert alert-warning').append(`
+                            <span class="alert-link">{{ trans('translate.score') }} ${dataResponse.score}/${questionArr.length}</span>
+                            <span class="alert-link">{{ trans('translate.total') }} ${dataResponse.total}/${questionArr.length * (config.point)} (${((dataResponse.total / (questionArr.length * (config.point))) * (config.hundred)).toFixed(config.two)}%)</span>
+                            <span class="alert-link">{{ trans('translate.try_again') }} <i class="far fa-smile-wink text-success"></i>
+                            </span>
+                        `);
                     }
                     $('input').prop('disabled', true);
-                    $('div#score').addClass('alert alert-warning').append(`
-                        <span class="alert-link">{{trans('translate.score')}} ${dataResponse.score}/${questionArr.length}</span>
-                        <span class="alert-link">{{trans('translate.total')}} ${dataResponse.total}/${questionArr.length*(config.point)}</span>
-                    `);
                     $('button.btn-submit').hide();
                     $('button.btn-refresh').show();
                     $('html, body').animate({

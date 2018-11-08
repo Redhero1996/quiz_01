@@ -6,6 +6,7 @@ use App\Http\Requests\UserProfileRequest;
 use App\Models\Category;
 use App\Models\Topic;
 use App\User;
+use DB;
 use Illuminate\Support\Facades\Auth;
 use Image;
 use Session;
@@ -17,8 +18,30 @@ class HomePageController extends Controller
     {
         $categories = Category::all();
         $topics = Topic::latest('id')->paginate();
+        $ranks = [];
+        $select_table = DB::select(
+            'select user_id, avg(max_score) as score, count(topic_id) as count_topic
+            from ( select user_id, topic_id, max(total) as max_score
+                    from topic_user
+                    group by user_id, topic_id
+                ) as tmp
+            group by user_id
+            order by score desc;'
+        );
+        foreach ($select_table as $key => $select) {
+            foreach ($topics as $topic) {
+                foreach ($topic->users as $user) {
+                    if ($select->user_id == $user->id) {
+                        $ranks[$key]['username'] = $user->name;
+                        $ranks[$key]['avatar'] = $user->avatar;
+                        $ranks[$key]['total'] = $select->score;
+                        $ranks[$key]['count'] = $select->count_topic;
+                    }
+                }
+            }
+        }
 
-        return view('pages.homepage', compact('categories', 'topics'));
+        return view('pages.homepage', compact('categories', 'topics', 'ranks'));
     }
 
     public function getProfile($username, $id)

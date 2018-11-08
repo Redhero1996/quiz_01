@@ -111,7 +111,7 @@ div.div-quest {
 }
 
 div.quest {
-    color: #fff;
+    color: #663300;
     width: 100px;
     height: 25px;
     background-color: #33abe5;
@@ -120,7 +120,7 @@ div.quest {
 }
 
 div.time {
-    color: #fff;
+    color: #663300;
     text-align: center;
     width: 100px;
     height: 25px;
@@ -245,7 +245,7 @@ span.answers {
 }
 
 ul.nav.navbar-nav.test {
-    right: 126px; 
+    right: 100px; 
     position: absolute; 
     margin: 10px 20px 0px 0px;
 }
@@ -399,4 +399,12 @@ thead.rank-top {
 thead.rank-top > tr > th {
     font-weight: bold;
     color: #fff;
+}
+
+li.explain { 
+    display: none;
+}
+
+h4.explain {
+    color: blue;
 }

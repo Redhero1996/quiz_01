@@ -34,6 +34,7 @@ return [
     'rank' => 'Top',
     'member' => 'Member',
     'top' => 'Top member',
+    'count_topic' => 'All topics',
 
     // test page
     'alert' => 'Are you sure you want to leave?',
@@ -41,6 +42,8 @@ return [
     'total' => 'Total:',
     'oops' => 'Oops!',
     'warn_alert' => 'Time out',
+    'try_again' => 'You have to get 70% to see the answer! Good luck!',
+    'explain' => 'Explain',
 
     // proflie
     'avatar' => 'Avatar',

@@ -5,10 +5,8 @@
             <nav id="nav-sidebar" class="bg-faded mt-3">
                 <div class="sidebar-content hidden-sm-down">
                     <ul class="nav nav-pills flex-column" id="menu">
-                        <li class="view overlay z-depth-1-half">
-                            <a class="nav-link active" href="{{ url('/') }}">{{ trans('translate.category') }} </a>
+                            <a class="nav-link active" href="{{ url('/') }}">{{ __('translate.category') }} </a>
                             <div class="mask rgba-white-slight"></div>
-                        </li>
                         @foreach ($categories as $category)
                         <li class="nav-item view overlay z-depth-1-half" value="{{ $category->id }}">
                             <span class="nav-link">{{ $category->name }} ({{ count($category->topics) }})</span>
@@ -34,14 +32,19 @@
                     <div class="div-quest">
                         <div class="quest">
                             <i class="fas fa-pencil-alt"></i>
-                            <span>{{ count($topic->questions) }} {{ trans('translate.question') }}</span>
+                            <span>{{ count($topic->questions) }} {{ __('translate.question') }}</span>
                         </div>
                         <div class="time">
                             <i class="far fa-clock"></i>
-                            <span>{{ trans('translate.time_clock', ['time' => config('constants.minute')]) }}</span>
+                            <span>{{ __('translate.time_clock', ['time' => config('constants.minute')]) }}</span>
                         </div>
                     </div>
-                    <i class="fas fa-check-circle text-success"></i>
+                    @foreach ($topic->users as $user)
+                        @if (Auth::check() && Auth::user()->id == $user->pivot->user_id)
+                            <i class="fas fa-check-circle text-success"></i>
+                            @break
+                        @endif
+                    @endforeach
                 </a>
                 <p class="row-space"></p>
             @endforeach
@@ -50,22 +53,26 @@
             </div>
         </div>
         <div class="col-md-4 mt-3 rank">
-            <h3 class="text-center font-weight-bold">{{ trans('translate.top') }}</h3>
+            <h3 class="text-center font-weight-bold">{{ __('translate.top') }}</h3>
             <div class="card card-cascade narrower">
                 <table class="table table-striped table-responsive-md btn-table text-center">
                     <thead class="rank-top">
                         <tr>
-                            <th>{{ trans('translate.rank') }}</th>
-                            <th>{{ trans('translate.member') }}</th>
-                            <th>{{ trans('translate.total_profile') }}</th>
+                            <th>{{ __('translate.rank') }}</th>
+                            <th>{{ __('translate.member') }}</th>
+                            <th>{{ __('translate.count_topic') }}</th>
+                            <th>{{ __('translate.total_profile') }}</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row"></th>
-                            <td></td>
-                           <td></td>
-                        </tr>
+                        @foreach ($ranks as $key => $rank)
+                            <tr>
+                                <th scope="row">{{ $key + config('constants.number_ques') }}</th>
+                                <td><img class="avatar" src="{{ config('view.image_paths.images') . $rank['avatar'] }}"> {{ $rank['username'] }}</td>
+                                <td>{{ $rank['count'] }}</td>
+                                <td>{{ round($rank['total'], config('constants.two')) }}</td>
+                            </tr>
+                        @endforeach
                     </tbody>
 
                 </table>
@@ -102,31 +109,60 @@
                         $('#topics').empty();
                         $.each(data.topics, function(key, topic) {
                             date = topic.created_at;
-                            $('#topics').append(
-                                `<a href="`+ data.category_slug + `/` + topic.slug +`" class="chip chip-lg light-blue lighten-4 waves-effect">
-                                    <div class="calendar">
-                                        <div class="year">`+ date.year +`</div>
-                                        <div class="day">`+ date.day +`
-                                            <div id="line"></div>
+                            if (topic.user) {
+                                $('#topics').append(
+                                    `<a href="` + data.category_slug + `/` + topic.slug + `" class="chip chip-lg light-blue lighten-4 waves-effect">
+                                        <div class="calendar">
+                                            <div class="year">` + date.year + `</div>
+                                            <div class="day">` + date.day + `
+                                                <div id="line"></div>
+                                            </div>
+                                            <div class="month">` + date.month + `</div>
                                         </div>
-                                        <div class="month">`+ date.month +`</div>
-                                    </div>
-                                    <div class="div-content">
-                                        `+ topic.name +`
-                                    </div>
-                                    <div class="div-quest">
-                                        <div class="quest">
-                                            <i class="fas fa-pencil-alt"></i>
-                                            <span>`+ topic.count +` {{ trans('translate.question') }}` +`</span>
+                                        <div class="div-content">
+                                            ` + topic.name + `
                                         </div>
-                                        <div class="time">
-                                            <i class="far fa-clock"></i>
-                                            <span>{{ trans('translate.time_clock', ['time' => config('constants.minute')]) }}</span>
+                                        <div class="div-quest">
+                                            <div class="quest">
+                                                <i class="fas fa-pencil-alt"></i>
+                                                <span>` + topic.count + ` {{ __('translate.question') }}` + `</span>
+                                            </div>
+                                            <div class="time">
+                                                <i class="far fa-clock"></i>
+                                                <span>{{ __('translate.time_clock', ['time' => config('constants.minute')]) }}</span>
+                                            </div>
                                         </div>
-                                    </div>
-                                </a>
-                                <p class="row-space"></p>`
-                            );
+                                        <i class="fas fa-check-circle text-success"></i>
+                                    </a>
+                                    <p class="row-space"></p>`
+                                );
+                            } else {
+                                $('#topics').append(
+                                    `<a href="` + data.category_slug + `/` + topic.slug + `" class="chip chip-lg light-blue lighten-4 waves-effect">
+                                        <div class="calendar">
+                                            <div class="year">` + date.year + `</div>
+                                            <div class="day">` + date.day + `
+                                                <div id="line"></div>
+                                            </div>
+                                            <div class="month">` + date.month + `</div>
+                                        </div>
+                                        <div class="div-content">
+                                            ` + topic.name + `
+                                        </div>
+                                        <div class="div-quest">
+                                            <div class="quest">
+                                                <i class="fas fa-pencil-alt"></i>
+                                                <span>` + topic.count + ` {{ __('translate.question') }}` + `</span>
+                                            </div>
+                                            <div class="time">
+                                                <i class="far fa-clock"></i>
+                                                <span>{{ __('translate.time_clock', ['time' => config('constants.minute')]) }}</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <p class="row-space"></p>`
+                                );
+                            }
                         });
                     }
                 });
