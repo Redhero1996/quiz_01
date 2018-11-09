@@ -13,6 +13,7 @@ class Question extends Model
     protected $fillable = [
         'content',
         'correct_ans',
+        'explain',
     ];
 
     public function topics()

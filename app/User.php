@@ -5,6 +5,7 @@ namespace App;
 use App\Models\Comment;
 use App\Models\Role;
 use App\Models\Topic;
+use App\Models\Like;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -27,6 +28,9 @@ class User extends Authenticatable
         'avatar',
         'email',
         'password',
+        'provider_id',
+        'provider',
+        'access_token',
     ];
 
     /**
@@ -35,8 +39,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password',
-        'remember_token',
+        'password', 'remember_token',
     ];
 
     public function role()
@@ -50,11 +53,16 @@ class User extends Authenticatable
             'id',
             'answered',
             'total',
-        ])->withTimestamps();
+        ])->orderBy('total', 'desc')->withTimestamps();
     }
 
     public function comments()
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
     }
 }

@@ -31,7 +31,7 @@ class QuizController extends Controller
         ]);
     }
 
-    public function quiz($category_slug, $topic_slug)
+    public function quiz(Category $category, Topic $topic)
     {
         $alphabet = [
             'A', 'B', 'C', 'D', 'E',
@@ -41,7 +41,6 @@ class QuizController extends Controller
             'U', 'V', 'W', 'X', 'Y',
             'Z',
         ];
-        $topic = Topic::whereSlug($topic_slug)->first();
         $questions = $topic->questions()->where('topic_id', $topic->id)->get();
         $data = [];
         foreach ($questions as $key => $question) {
@@ -110,7 +109,7 @@ class QuizController extends Controller
         return $dataResponse;
     }
 
-    public function reviewQuiz($category_slug, $topic_slug, $id)
+    public function reviewQuiz(Category $category, Topic $topic, $id)
     {
         $alphabet = [
             'A', 'B', 'C', 'D', 'E',
@@ -120,7 +119,6 @@ class QuizController extends Controller
             'U', 'V', 'W', 'X', 'Y',
             'Z',
         ];
-        $topic = Topic::whereSlug($topic_slug)->first();
         $questions = $topic->questions()->where('topic_id', $topic->id)->get();
         $data = [];
         foreach ($topic->users as $key => $user) {

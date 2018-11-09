@@ -13,6 +13,13 @@ class Topic extends Model
         'name',
         'slug',
         'category_id',
+        'user_id',
+        'status',
+        'view_count',
+    ];
+
+    protected $withCount = [
+        'likes',
     ];
 
     public function __construct(array $attributes = [])
@@ -28,7 +35,7 @@ class Topic extends Model
 
     public function questions()
     {
-        return $this->belongsToMany(Question::class)->withTimestamps();
+        return $this->belongsToMany(Question::class);
     }
 
     public function users()
@@ -38,6 +45,11 @@ class Topic extends Model
             'answered',
             'total',
         ]);
+    }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
     }
 
     public function getCreatedAtAttribute()
@@ -50,5 +62,10 @@ class Topic extends Model
         $result['day'] = $date[2];
 
         return $result;
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 }

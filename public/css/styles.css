@@ -151,15 +151,15 @@ h3#currentQuestionNumberText {
     color: #1a1a1a;
 }
 
-button.btn-test, a.btn-refresh {
+a.btn-refresh, span.btn-refresh {
     float: right;
     padding: 10px;
     margin: 0;
     border-radius: 20px; 
 }
 
-a.btn-refresh {
-    display: none; 
+button.btn-test {
+    border-radius: 20px;
 }
 
 a#restart-test {
@@ -191,6 +191,15 @@ h3#title-quiz {
     font-weight: bold;
 }
 
+div.btn-test {
+    font-family: Western, cursive;
+    border-radius: 20px;
+}
+
+div.do-test {
+    display: none;
+}
+
 div#score {
     margin-left: 36px;
     text-align: center;
@@ -209,13 +218,19 @@ ol.questions {
 
 ol > li.title-question {
     padding: 15px 10px 0px 10px;
-    border-radius: 10px;    
+    border-radius: 10px;  
+    clear: both;  
+}
+
+ol > li.comment {
+    float: right;
+    color: #000 !important;
 }
 
 button.btn-submit {
     display: none;
     border-radius: 20px;
-    margin: 2px 20px 25px 0px;
+    margin: 2px 40px 25px 0px;
     padding: 9px 15px;
 }
 
@@ -355,6 +370,10 @@ input.change {
     border-radius: 50px;
 }
 
+input.btn.btn-info.waves-effect.waves-light, .waves-input-wrapper {
+    padding: 6px 20px;
+}
+
 .row.flex-center.upfile {
     position: relative;
     overflow: hidden;
@@ -407,4 +426,109 @@ li.explain {
 
 h4.explain {
     color: blue;
+}
+
+.active-pink-2 input[type=text]:focus:not([readonly]) {
+    border-bottom: 1px solid #f48fb1;
+    box-shadow: 0 1px 0 0 #f48fb1;
+}
+.active-pink input[type=text] {
+    border-bottom: 1px solid #f48fb1;
+    box-shadow: 0 1px 0 0 #f48fb1;
+}
+
+.active-pink .fa, .active-pink-2 .fa {
+    color: #f48fb1;
+}
+
+svg.svg-inline--fa.fa-search.fa-w-16 {
+    color: #f48fb1;
+}
+
+form.form-inline.md-form.form-sm {
+    margin-bottom: 0.5em !important;
+}
+
+div.mt-lg-5.reset-password {
+    margin-top: 5rem!important;
+}
+
+label.question {
+    font-weight: bold;
+    color: red;
+}
+
+a.btn-light.submit, a.btn-warning.edit {
+    border-radius: 20px;
+}
+
+h3.manage {
+    font-family: Western, cursive !important;
+    font-weight: bold !important;
+    color: lightblue;
+}
+
+td.status {
+    color: #6c757d;
+}
+
+span.content {
+    font-weight: bold;
+}
+
+div.modal-header.delete {
+    display: inline-block;
+}
+
+.alert-dismissible.add {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #c2ab6a !important; 
+}
+
+button.add {
+    padding: 0;
+    background-color: transparent;
+    border: 0;
+    -webkit-appearance: none;
+}
+
+.add {
+    float: right;
+    font-size: 1.5rem;
+    color: #795e12;
+    text-shadow: 0 1px 0 #fff;
+    opacity: .5;
+    font-weight: 700;
+    line-height: 1;
+    text-transform: none; 
+}
+
+button.add:hover {
+    cursor: pointer;
+    color: #000;
+}
+
+.icon-like {
+    color: #4267b2;
+}
+
+h4>span.question {
+    color: red;
+    font-size: 32px;
+    font-style: italic;
+    font-weight: bold;
+}
+
+h4>span.content {
+    font-weight: bold;
+}
+
+span.help-block {
+    color: red !important;
+}
+
+img.img {
+    height: 30em;
 }
