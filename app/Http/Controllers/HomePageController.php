@@ -11,12 +11,20 @@ use Illuminate\Support\Facades\Auth;
 use Image;
 use Session;
 use Storage;
+use App\Repositories\Repository;
 
 class HomePageController extends Controller
 {
+    protected $rank;
+    protected $category;
+
+    public function __construct(Category $category) {
+        $this->category = new Repository($category);
+    }
+    
     public function home()
     {
-        $categories = Category::all();
+        $categories = $this->category->all();
         $topics = Topic::latest('id')->where('status', 1)->paginate();
         $ranks = [];
         $select_table = DB::select(
