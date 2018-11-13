@@ -9,6 +9,7 @@ use App\Models\Topic;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Repositories\Repository;
 
 class QuizController extends Controller
 {
