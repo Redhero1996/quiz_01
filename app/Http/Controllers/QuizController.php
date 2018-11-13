@@ -13,6 +13,12 @@ use App\Repositories\Repository;
 
 class QuizController extends Controller
 {
+    protected $repository;
+
+    public function __construct(Repository $repository) {
+        $this->repository = $repository;
+    }
+
     public function category($category_id)
     {
         $topics = Topic::where('category_id', $category_id)->latest('id')->get();
@@ -34,14 +40,7 @@ class QuizController extends Controller
 
     public function quiz(Category $category, Topic $topic)
     {
-        $alphabet = [
-            'A', 'B', 'C', 'D', 'E',
-            'F', 'G', 'H', 'I', 'J',
-            'K', 'L', 'M', 'N', 'O',
-            'P', 'Q', 'R', 'S', 'T',
-            'U', 'V', 'W', 'X', 'Y',
-            'Z',
-        ];
+        $alphabet = $this->repository->getAlphabet();
         $questions = $topic->questions()->where('topic_id', $topic->id)->get();
         $data = [];
         foreach ($questions as $key => $question) {
@@ -112,14 +111,7 @@ class QuizController extends Controller
 
     public function reviewQuiz(Category $category, Topic $topic, $id)
     {
-        $alphabet = [
-            'A', 'B', 'C', 'D', 'E',
-            'F', 'G', 'H', 'I', 'J',
-            'K', 'L', 'M', 'N', 'O',
-            'P', 'Q', 'R', 'S', 'T',
-            'U', 'V', 'W', 'X', 'Y',
-            'Z',
-        ];
+        $alphabet = $this->repository->getAlphabet();
         $questions = $topic->questions()->where('topic_id', $topic->id)->get();
         $data = [];
         foreach ($topic->users as $key => $user) {
