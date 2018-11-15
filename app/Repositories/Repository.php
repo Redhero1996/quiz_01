@@ -4,7 +4,7 @@ namespace App\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Repository implements RepositoryInterface
+abstract class Repository implements RepositoryInterface
 {
     protected $model;
 
