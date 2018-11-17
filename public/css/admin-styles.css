@@ -1,0 +1,42 @@
+div.sidebar-fixed {
+    width: 270px;
+    -webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+    z-index: 1050;
+    background-color: #fff;
+    padding: 0 1.5rem 1.5rem;
+    position: relative !important;
+    display: inline-block;
+    float: left;
+}
+
+main.mx-lg-5 {
+	margin-left: 18rem!important;
+}
+
+input.btn.btn-info.waves-effect.waves-light, .waves-input-wrapper {
+    padding: 6px 20px;
+}
+
+div.modal-header {
+    display: inline-block;
+}
+
+img.avatar {
+    height: 27px;
+    border-radius: 50% 50%;
+}
+
+img.avatar.profile {
+    height: 200px !important;
+    width: 200px;
+}
+
+label.question {
+    font-weight: bold;
+    color: red;
+}
+
+span.help-block {
+    color: red;
+}
