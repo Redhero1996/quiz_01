@@ -532,3 +532,11 @@ span.help-block {
 img.img {
     height: 30em;
 }
+
+div>p.answer {
+    display: inline-block;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+}
+
+label.correct_ans {
+    color: blue;
+}
